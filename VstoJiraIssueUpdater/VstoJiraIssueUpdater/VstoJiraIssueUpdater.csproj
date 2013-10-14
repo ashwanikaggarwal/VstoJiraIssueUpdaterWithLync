@@ -31,11 +31,11 @@
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>E:\Software\Not Free\Jira Issue Updater\</PublishUrl>
-    <InstallUrl />
+    <PublishUrl>E:\SkyDrive\Apps\Vsto Jira Issue Updater With Lync\</PublishUrl>
+    <InstallUrl>\\ththlk1\Apps\Vsto Jira Issue Updater With Lync\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>3.0.0.7</ApplicationVersion>
-    <AutoIncrementApplicationRevision>false</AutoIncrementApplicationRevision>
+    <ApplicationVersion>3.0.0.8</ApplicationVersion>
+    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>

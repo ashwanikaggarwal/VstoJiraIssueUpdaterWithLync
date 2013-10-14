@@ -17,7 +17,6 @@ namespace VstoJiraIssueUpdater.Forms
 
         internal JiraLync MyJiraLync { private get; set; }
 
-
         public FormSave()
         {
             InitializeComponent();
@@ -295,7 +294,14 @@ namespace VstoJiraIssueUpdater.Forms
                             bIssue.Key = key.Trim();
                         }
                         bIssue.Summary = summary.Trim();
-                        bIssue.OriginalEstimate = originalEstimate.ToString().Trim() + Properties.Settings.Default.OriginalEstimateIn;
+                        if (originalEstimate != null)
+                        {
+                            bIssue.OriginalEstimate = originalEstimate.ToString().Trim() + Properties.Settings.Default.OriginalEstimateIn;
+                        }
+                        else
+                        {
+                            bIssue.OriginalEstimate = "0" + Properties.Settings.Default.OriginalEstimateIn;
+                        }
                         if (string.IsNullOrWhiteSpace(priority) == false)
                         {
                             bIssue.Priority = priority.Trim();
