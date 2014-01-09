@@ -28,11 +28,7 @@ namespace VstoJiraIssueUpdater
             }
 
             try
-            {
-                //Tharindu.JiraRest.JiraClient myJiraRestClient = new Tharindu.JiraRest.JiraClient("http://jira/rest/api/2.0.alpha1/", "ththlk", "ththlk");
-
-                //Tharindu.JiraRest.Issue myRestIssue = myJiraRestClient.GetIssue("BRZ-4191");
-
+            {                
                 mySave = new FormSave();
                 if (myJiraLync != null)
                 {

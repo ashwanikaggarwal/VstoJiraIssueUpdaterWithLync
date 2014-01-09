@@ -346,7 +346,7 @@ namespace VstoJiraIssueUpdater.Forms
                             myIssue = this.MyJira.CreateIssue(Properties.Settings.Default.JiraProjectID, bIssue.UserStoryKey);
                             myIssue.Type = bIssue.Type;
                             myIssue.Components.Add(bIssue.Categories);
-                            myIssue.Summary = bIssue.Summary;
+                            myIssue.Summary = bIssue.Summary;                           
                         }
                         else
                         {
