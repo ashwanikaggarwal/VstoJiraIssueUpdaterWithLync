@@ -24,6 +24,7 @@ namespace VstoJiraIssueUpdater
         internal string Status { get; private set; }
 
         internal int RowIndex { get; set; }
+        internal string ParentKey { get; set; }
         internal string Key { get; set; }
         internal string Description { get; set; }
         internal string Priority { get; set; }

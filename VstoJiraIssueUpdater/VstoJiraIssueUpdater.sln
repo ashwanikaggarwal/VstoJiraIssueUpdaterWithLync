@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VstoJiraIssueUpdater", "VstoJiraIssueUpdater\VstoJiraIssueUpdater.csproj", "{C5D43EE6-B068-41C0-9DBA-27096B7A6F3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.JiraRestClient", "TechTalk.JiraRestClient\TechTalk.JiraRestClient.csproj", "{210529FA-454E-4C32-A2C8-353ECBD4DA05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{C5D43EE6-B068-41C0-9DBA-27096B7A6F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5D43EE6-B068-41C0-9DBA-27096B7A6F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5D43EE6-B068-41C0-9DBA-27096B7A6F3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{210529FA-454E-4C32-A2C8-353ECBD4DA05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{210529FA-454E-4C32-A2C8-353ECBD4DA05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{210529FA-454E-4C32-A2C8-353ECBD4DA05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{210529FA-454E-4C32-A2C8-353ECBD4DA05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

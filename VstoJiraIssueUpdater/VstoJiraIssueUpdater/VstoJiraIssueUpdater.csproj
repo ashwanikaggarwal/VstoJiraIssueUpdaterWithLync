@@ -31,10 +31,10 @@
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>E:\SkyDrive\Apps\Vsto Jira Issue Updater With Lync\</PublishUrl>
+    <PublishUrl>C:\Apps\Vsto Jira Issue Updater With Lync\</PublishUrl>
     <InstallUrl>\\ththlk1\Apps\Vsto Jira Issue Updater With Lync\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>3.0.0.8</ApplicationVersion>
+    <ApplicationVersion>3.0.0.10</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -143,20 +143,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
+    <ManifestKeyFile>VstoJiraIssueUpdater_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>B5780CB9AC37ED12CAEC0FAF018ADF56BEBF34D0</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>7A6364A73EC0056FF1F32E3EFC064E2D858FA994</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!--
     This section specifies references for the project.
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="Atlassian.Jira, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atlassian.SDK.2.3.0\lib\Atlassian.Jira.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Lync.Model, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -243,7 +239,6 @@
       <DependentUpon>RibbonIFS.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -269,7 +264,6 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
-    <None Include="VstoJiraIssueUpdater_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loader.gif" />
@@ -279,6 +273,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ajax-loader.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TechTalk.JiraRestClient\TechTalk.JiraRestClient.csproj">
+      <Project>{210529FA-454E-4C32-A2C8-353ECBD4DA05}</Project>
+      <Name>TechTalk.JiraRestClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

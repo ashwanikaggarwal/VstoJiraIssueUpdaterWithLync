@@ -4,7 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-using Atlassian.Jira;
+using TechTalk.JiraRestClient;
+
 
 namespace VstoJiraIssueUpdater.Forms
 {
@@ -13,7 +14,7 @@ namespace VstoJiraIssueUpdater.Forms
         private delegate void backgroundWorkerSave_ProgressChangedDelegate(object sender, ProgressChangedEventArgs e);
         private delegate void backgroundWorkerSave_RunWorkerCompletedDelegate(object sender, RunWorkerCompletedEventArgs e);
 
-        private Jira MyJira { get; set; }
+        private JiraClient MyJira { get; set; }
 
         internal JiraLync MyJiraLync { private get; set; }
 
@@ -25,13 +26,11 @@ namespace VstoJiraIssueUpdater.Forms
         private void FormSave_Load(object sender, EventArgs e)
         {
             try
-            {
-                this.MyJira = new Jira(Properties.Settings.Default.JiraServer.Trim(),
-                                       Properties.Settings.Default.UserName.Trim(),
-                                       Properties.Settings.Default.Password.Trim());
-                this.MyJira.Debug = false;
-                this.MyJira.MaxIssuesPerRequest = int.MaxValue;
-
+            {               
+                this.MyJira = new JiraClient(Properties.Settings.Default.JiraServer.Trim(),
+                                             Properties.Settings.Default.UserName.Trim(),
+                                             Properties.Settings.Default.Password.Trim());
+               
                 buttonCancel.Text = "Cancel";
 
                 if (backgroundWorkerSave.IsBusy == false)
@@ -219,25 +218,23 @@ namespace VstoJiraIssueUpdater.Forms
                 throw new Exception("'Server URL' and 'Reporter' and 'Password' must have values!");
             }
 
-            this.MyJira = new Jira(Properties.Settings.Default.JiraServer.Trim(),
-                                   Properties.Settings.Default.UserName.Trim(),
-                                   Properties.Settings.Default.Password.Trim());
-            this.MyJira.Debug = false;
-            this.MyJira.MaxIssuesPerRequest = int.MaxValue;
+            this.MyJira = new JiraClient(Properties.Settings.Default.JiraServer.Trim(),
+                                         Properties.Settings.Default.UserName.Trim(),
+                                         Properties.Settings.Default.Password.Trim());
 
-            List<Project> JiraProjectList = this.MyJira.GetProjects().Where(p => p.Key == Properties.Settings.Default.JiraProjectID).ToList();
-            if (JiraProjectList == null || JiraProjectList.Count < 1)
+            Project JiraProjec = this.MyJira.GetProject(Properties.Settings.Default.JiraProjectID);
+            if (JiraProjec == null)
             {
                 throw new Exception("JIRA Project ID does not Exist!");
             }
-            List<ProjectComponent> teamList = this.MyJira.GetProjectComponents(Properties.Settings.Default.JiraProjectID).Where(c => c.Name == Properties.Settings.Default.Component_Team).ToList();
-            if (teamList == null || teamList.Count < 1)
+            List<ProjectComponent> teamList = JiraProjec.components.Where(c => c.name == Properties.Settings.Default.Component_Team).ToList();
+            if (teamList == null && teamList.Count < 1)
             {
                 throw new Exception("Team does not Exist!");
             }
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.FixVersion) == false)
             {
-                List<ProjectVersion> fixIterationsList = this.MyJira.GetProjectVersions(Properties.Settings.Default.JiraProjectID).Where(v => v.Name == Properties.Settings.Default.FixVersion).ToList();
+                List<TechTalk.JiraRestClient.Version> fixIterationsList = JiraProjec.versions.Where(v => v.name == Properties.Settings.Default.FixVersion).ToList();
                 if (fixIterationsList == null || fixIterationsList.Count < 1)
                 {
                     throw new Exception("Fix Iteration does not Exist!");
@@ -343,40 +340,51 @@ namespace VstoJiraIssueUpdater.Forms
                     {
                         if (string.IsNullOrWhiteSpace(bIssue.Key))
                         {
-                            myIssue = this.MyJira.CreateIssue(Properties.Settings.Default.JiraProjectID, bIssue.UserStoryKey);
-                            myIssue.Type = bIssue.Type;
-                            myIssue.Components.Add(bIssue.Categories);
-                            myIssue.Summary = bIssue.Summary;                           
+                            myIssue = new Issue();
+                            myIssue.fields.reporter = new JiraUser() { name = Properties.Settings.Default.UserName };
+                            myIssue.fields.parent = new Issue() { key = bIssue.UserStoryKey };
                         }
                         else
                         {
-                            myIssue = this.MyJira.Issues.Where(i => i.Key == bIssue.Key).ToList()[0];
-                            if (myIssue.Reporter != Properties.Settings.Default.UserName)
+                            myIssue = this.MyJira.LoadIssue(bIssue.Key);
+                            if (myIssue.fields.reporter.name != Properties.Settings.Default.UserName)
                             {
                                 throw new Exception("It's not your Sub Task to update.");
                             }
                         }
 
-                        myIssue.Description = bIssue.Description;
-                        myIssue.Priority = bIssue.Priority;
+                        myIssue.fields.summary = bIssue.Summary;                       
+                        myIssue.fields.description = bIssue.Description;
+                        myIssue.fields.priority = new Priority() { name = bIssue.Priority };
 
-                        myIssue.SaveChanges();
-
-                        if (string.IsNullOrWhiteSpace(bIssue.Assignee) == false ||
-                            string.IsNullOrWhiteSpace(bIssue.FixIterations) == false)
+                        myIssue.fields.timetracking.originalEstimate = bIssue.OriginalEstimate;
+                                               
+                        if (myIssue.fields.components.Exists(c => c.name == bIssue.Categories) == false)
                         {
-                            myIssue.Assignee = bIssue.Assignee;
-                            if (string.IsNullOrWhiteSpace(bIssue.FixIterations) == false)
-                            {
-                                myIssue.FixVersions.Add(bIssue.FixIterations);
-                            }
-
-                            myIssue.SaveChanges();
+                            myIssue.fields.components.Add(new IssueComponent() { name = bIssue.Categories });
                         }
 
+                        if (string.IsNullOrWhiteSpace(bIssue.Assignee) == false &&
+                            myIssue.fields.assignee.name != bIssue.Assignee)
+                        {
+                            myIssue.fields.assignee = new JiraUser() { name = bIssue.Assignee };                           
+                        }
+
+                        if (string.IsNullOrWhiteSpace(bIssue.FixIterations) == false &&
+                            myIssue.fields.fixVersions.Exists(c => c.name == bIssue.FixIterations) == false)
+                        {
+                            myIssue.fields.fixVersions.Add(new IssueFixVersion() { name = bIssue.FixIterations });
+                        }
+                                                
                         if (string.IsNullOrWhiteSpace(bIssue.Key))
                         {
-                            myRange.Rows[bIssue.RowIndex].Cells[1, 2].Value2 = myIssue.Key.Value;
+                            myIssue = this.MyJira.CreateIssue(Properties.Settings.Default.JiraProjectID, bIssue.Type, myIssue.fields);
+
+                            myRange.Rows[bIssue.RowIndex].Cells[1, 2].Value2 = myIssue.key;
+                        }
+                        else
+                        {
+                            this.MyJira.UpdateIssue(myIssue);
                         }
                     }
                     catch (Exception)

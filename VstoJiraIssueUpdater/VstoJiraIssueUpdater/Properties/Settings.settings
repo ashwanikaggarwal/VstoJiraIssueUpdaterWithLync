@@ -36,7 +36,7 @@
       <Value Profile="(Default)">මට බැ Pumali !</Value>
     </Setting>
     <Setting Name="Type" Type="System.String" Scope="User">
-      <Value Profile="(Default)">7</Value>
+      <Value Profile="(Default)">Task</Value>
     </Setting>
     <Setting Name="DefaultPriority" Type="System.String" Scope="User">
       <Value Profile="(Default)">Three</Value>
