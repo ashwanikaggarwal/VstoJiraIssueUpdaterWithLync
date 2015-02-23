@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
 using TechTalk.JiraRestClient;
-
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace VstoJiraIssueUpdater.Forms
 {
     public partial class FormSave : Form
     {
         private delegate void backgroundWorkerSave_ProgressChangedDelegate(object sender, ProgressChangedEventArgs e);
+
         private delegate void backgroundWorkerSave_RunWorkerCompletedDelegate(object sender, RunWorkerCompletedEventArgs e);
 
         private JiraClient MyJira { get; set; }
@@ -26,11 +26,11 @@ namespace VstoJiraIssueUpdater.Forms
         private void FormSave_Load(object sender, EventArgs e)
         {
             try
-            {               
+            {
                 this.MyJira = new JiraClient(Properties.Settings.Default.JiraServer.Trim(),
                                              Properties.Settings.Default.UserName.Trim(),
                                              Properties.Settings.Default.Password.Trim());
-               
+
                 buttonCancel.Text = "Cancel";
 
                 if (backgroundWorkerSave.IsBusy == false)
@@ -92,7 +92,7 @@ namespace VstoJiraIssueUpdater.Forms
                     worker.ReportProgress(100);
                 }
 
-                // If the operation was canceled by the user, 
+                // If the operation was canceled by the user,
                 // set the DoWorkEventArgs.Cancel property to true.
                 if (worker.CancellationPending)
                 {
@@ -274,7 +274,7 @@ namespace VstoJiraIssueUpdater.Forms
                     {
                         key = myRow.Cells[1, 2].Value2; //B
                         summary = myRow.Cells[1, 3].Value2; //C
-                        originalEstimate = myRow.Cells[1, 4].Value2; //D                                                
+                        originalEstimate = myRow.Cells[1, 4].Value2; //D
                         priority = myRow.Cells[1, 5].Value2; //E
                         description = myRow.Cells[1, 6].Value2; //F
 
@@ -353,12 +353,12 @@ namespace VstoJiraIssueUpdater.Forms
                             }
                         }
 
-                        myIssue.fields.summary = bIssue.Summary;                       
+                        myIssue.fields.summary = bIssue.Summary;
                         myIssue.fields.description = bIssue.Description;
                         myIssue.fields.priority = new Priority() { name = bIssue.Priority };
 
                         myIssue.fields.timetracking.originalEstimate = bIssue.OriginalEstimate;
-                                               
+
                         if (myIssue.fields.components.Exists(c => c.name == bIssue.Categories) == false)
                         {
                             myIssue.fields.components.Add(new IssueComponent() { name = bIssue.Categories });
@@ -367,7 +367,7 @@ namespace VstoJiraIssueUpdater.Forms
                         if (string.IsNullOrWhiteSpace(bIssue.Assignee) == false &&
                             myIssue.fields.assignee.name != bIssue.Assignee)
                         {
-                            myIssue.fields.assignee = new JiraUser() { name = bIssue.Assignee };                           
+                            myIssue.fields.assignee = new JiraUser() { name = bIssue.Assignee };
                         }
 
                         if (string.IsNullOrWhiteSpace(bIssue.FixIterations) == false &&
@@ -375,7 +375,7 @@ namespace VstoJiraIssueUpdater.Forms
                         {
                             myIssue.fields.fixVersions.Add(new IssueFixVersion() { name = bIssue.FixIterations });
                         }
-                                                
+
                         if (string.IsNullOrWhiteSpace(bIssue.Key))
                         {
                             myIssue = this.MyJira.CreateIssue(Properties.Settings.Default.JiraProjectID, bIssue.Type, myIssue.fields);
