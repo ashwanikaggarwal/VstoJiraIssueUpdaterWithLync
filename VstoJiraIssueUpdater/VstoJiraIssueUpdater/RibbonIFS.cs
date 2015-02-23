@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Office.Tools.Ribbon;
-using VstoJiraIssueUpdater.CustomTaskPanes;
 using VstoJiraIssueUpdater.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Lync.Model;
+using VstoJiraIssueUpdater.CustomTaskPanes;
 
 namespace VstoJiraIssueUpdater
 {
@@ -17,17 +18,17 @@ namespace VstoJiraIssueUpdater
         {
             try
             {
+                myJiraLync = new JiraLync();
+
                 myCustomTaskPane = Globals.ThisAddIn.CustomTaskPanes.Add(new DefaultValueManager(), "JIRA Tools Default Values");
                 myCustomTaskPane.DockPositionRestrict = Microsoft.Office.Core.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoHorizontal;
-
-                myJiraLync = new JiraLync();
             }
             catch (Exception)
             {
             }
 
             try
-            {
+            {                
                 mySave = new FormSave();
                 if (myJiraLync != null)
                 {
