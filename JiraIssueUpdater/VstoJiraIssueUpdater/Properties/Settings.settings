@@ -1,0 +1,48 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VstoJiraIssueUpdater.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="JiraServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://jira</Value>
+    </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="JiraProjectID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Component_Team" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FixVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Assignee" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cprilk</Value>
+    </Setting>
+    <Setting Name="OriginalEstimateIn" Type="System.String" Scope="User">
+      <Value Profile="(Default)">h</Value>
+    </Setting>
+    <Setting Name="SupportPerson" Type="System.String" Scope="User">
+      <Value Profile="(Default)">peumali.sudasinghe@ifsworld.com</Value>
+    </Setting>
+    <Setting Name="WorkSheetName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">JIRA</Value>
+    </Setting>
+    <Setting Name="DefaultErrorMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">මට බැ Pumali !</Value>
+    </Setting>
+    <Setting Name="Type" Type="System.String" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+    <Setting Name="DefaultPriority" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Three</Value>
+    </Setting>
+    <Setting Name="Status" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Open</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
