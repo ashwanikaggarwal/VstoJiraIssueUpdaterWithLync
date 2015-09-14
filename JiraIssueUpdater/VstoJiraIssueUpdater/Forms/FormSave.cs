@@ -370,6 +370,7 @@ namespace VstoJiraIssueUpdater.Forms
                             {
                                 myIssue.FixVersions.Add(bIssue.FixIterations);
                             }
+                            myIssue.GetTimeTrackingData().OriginalEstimate = bIssue.OriginalEstimate;
 
                             myIssue.SaveChanges();
                         }

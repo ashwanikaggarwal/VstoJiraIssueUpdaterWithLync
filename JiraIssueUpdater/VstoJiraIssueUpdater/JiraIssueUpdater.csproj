@@ -39,8 +39,8 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <VSTO_TrustAssembliesLocation>true</VSTO_TrustAssembliesLocation>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>C:\Apps\IFS SVN Client\</PublishUrl>
-    <InstallUrl>\\ththlk1\Apps\Jira Issue Updater\</InstallUrl>
+    <PublishUrl>\\cmbrnd53\Apps\Jira Issue Updater\</PublishUrl>
+    <InstallUrl />
     <TargetCulture>en</TargetCulture>
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
@@ -48,8 +48,8 @@
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
     <ProductName>Jira Issue Updater</ProductName>
-    <PublisherName>THTHLK</PublisherName>
-    <SupportUrl />
+    <PublisherName>DevTools</PublisherName>
+    <SupportUrl>http://cmbrnd53/devtools/</SupportUrl>
     <FriendlyName>JiraIssueUpdater</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
@@ -158,7 +158,7 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>B22F7C30ED775FDF58376EE8C7BFBB8CA79756AA</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3055840E5A45C38F7AF349773423BB8162D1CB07</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!--
     This section specifies references for the project.
@@ -166,8 +166,8 @@
   <ItemGroup>
     <Reference Include="Accessibility" />
     <Reference Include="Atlassian.Jira, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Atlassian.SDK.2.5.0\lib\Atlassian.Jira.dll</HintPath>
+      <HintPath>..\packages\Atlassian.SDK.4.5.1\lib\Atlassian.Jira.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Lync.Model">
       <HintPath>..\packages\Lync.2010\Microsoft.Lync.Model.dll</HintPath>
@@ -186,8 +186,16 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.1.0\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -287,7 +295,6 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
-    <None Include="VstoJiraIssueUpdater_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loader.gif" />
